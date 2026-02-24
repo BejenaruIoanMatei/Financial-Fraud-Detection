@@ -31,3 +31,24 @@ pip install pachet
 ```console
 pip freeze > requirements.txt
 ```
+
+### GIT
+
+```console
+git pull origin main
+```
+```console
+git checkout -b nume-branch
+
+git status
+```
+
+```console
+git add .
+
+git commit -m "mesaj"
+
+git push origin nume-branch
+
+git checkout main
+```
