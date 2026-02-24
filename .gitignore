@@ -1,0 +1,7 @@
+venv
+
+*.todo
+
+data/processed/*
+
+data/raw/*
