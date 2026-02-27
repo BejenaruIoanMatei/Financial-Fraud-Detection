@@ -62,7 +62,40 @@ Data columns (total 21 columns):
 
 -   **Virtual Terminal / SoftPOS**: Multi comercianti mici folosesc laptopuri sau tablete drept case de marcat (ex: Shopify POS). Daca platesti cu cardul la un festival unde vanzatorul are un cititor conectat la un laptop, tranzactia este de tip POS, dar creierul este laptopul
 
--   **Zgomot în Datele Sintetice**`: Fiind un set de date sintetic, uneori algoritmii de generare creeaza aceste combinatii pentru a simula zgomotul (noise) din datele reale sau pentru a testa daca modelul de Machine Learning se lasa pacalit de corelatii absurde
+-   **Zgomot in Datele Sintetice**`: Fiind un set de date sintetic, uneori algoritmii de generare creeaza aceste combinatii pentru a simula zgomotul (noise) din datele reale sau pentru a testa daca modelul de Machine Learning se lasa pacalit de corelatii absurde
 
 Astea ar fi 3 posibile cauze destul de plauzibile care ar explica de ce avem unele combinatii ciudate cum ar fi plata la POS facuta cu un Laptop
 
+3. **IP_Address_Flag**
+
+-   Variabila binara, unde 1 inseamna ca a fost marcata ca fiind suspecta
+
+Ce inseamna "suspecta" si de ce a fost flagged ?
+
+-   Blacklisting: IP-ul a fost raportat anterior pentru activitati malitioase, atacuri de tip bot sau alte fraude confirmate
+
+-   Geolocatie de mare risc: IP-ul provine dintr-o regiune geografica recunoscuta pentru rate ridicate de criminalitate informatica, care nu coincide cu adresa de domiciliu a clientului
+
+Pot fi mai multe cauze, cele mentionate mai sus sunt cele mai des intalnite.
+
+OBS: Distributia este 95% pentru 0 si restul de 5% pentru 1 (cum era de asteptat)
+
+4. **Card_Age**
+
+-   Card_Age se refera de obicei la vechimea contului de card in sistemul bancii
+
+-   Valori in intervalul [1, 239], deci ne referim la MONTHS ca 239 de zile ca valoare maxima e mult prea putin si 239 de ani e imposibil
+
+-   239 de luni ar fi aprox 20 de ani, ceea ce e o relatie plauzibila a unui client cu o banca (perioada de cand are acel cont in sistem, nu ne referim cardul fizic)
+
+5. **Risk_Score**
+
+Cum a fost calculat ?
+
+Mai intai sa testam ipoteza ca Risk_Score a fost generat printr-o functie de tip Sigmoid (pe scurt ca e rezultatul de la Regresia Logistica):
+
+-   Aplicam logit asupra Risk_Score si obtinet o distributie normala. Asta ce inseamna ? Ca scorul de risc a fost generat print-o functie de activare specifica regresiei logistice
+
+-   Deci Risk_Score e rezultatul de la regresia logistica, deci e output ul altui model
+
+In concluzie o sa il folosim pe post de Benchmark si nu o sa il includem in analiza si antrenarea modelelor
